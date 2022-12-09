@@ -36,9 +36,15 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from abc import *
+from imp import reload
 import os
 import subprocess
 
+#
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+#
 from .region import *
 from .style import modified_regions
 
@@ -195,7 +201,7 @@ class GitRepo(AbstractRepo):
 
     def file_from_index(self, name):
         return subprocess.check_output(
-            [ self.git, "show", ":%s" % (name, ) ]).decode()
+            [ self.git, "show", ":%s" % (name, ) ]).decode('utf-8', 'ignore')
 
     def file_from_head(self, name):
         return subprocess.check_output(
